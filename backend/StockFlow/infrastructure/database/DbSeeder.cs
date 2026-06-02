@@ -12,29 +12,29 @@ public static class DbSeeder
             using var conn = factory.Create();
 
             var adminExiste = await conn.ExecuteScalarAsync<bool>(
-                "SELECT EXISTS(SELECT 1 FROM users WHERE username = 'admin')");
+                "SELECT EXISTS(SELECT 1 FROM users WHERE username = 'superusr')");
 
             if (!adminExiste)
             {
-                var hash = BCrypt.Net.BCrypt.HashPassword("admin123", workFactor: 12);
+                var hash = BCrypt.Net.BCrypt.HashPassword("Super1234", workFactor: 12);
                 await conn.ExecuteAsync(@"
                     INSERT INTO users (id, username, email, password_hash, role, is_active, created_at)
-                    VALUES (gen_random_uuid(), 'admin', 'admin@stockflow.com', @Hash, 'Admin', TRUE, NOW())",
+                    VALUES (gen_random_uuid(), 'superusr', 'superusr@stockflow.com', @Hash, 'Admin', TRUE, NOW())",
                     new { Hash = hash });
-                logger.LogInformation("Seed: usuario admin creado.");
+                logger.LogInformation("Seed: usuario superusr creado.");
             }
 
-            var viewerExiste = await conn.ExecuteScalarAsync<bool>(
-                "SELECT EXISTS(SELECT 1 FROM users WHERE username = 'viewer')");
+            var consultaExiste = await conn.ExecuteScalarAsync<bool>(
+                "SELECT EXISTS(SELECT 1 FROM users WHERE username = 'consulta')");
 
-            if (!viewerExiste)
+            if (!consultaExiste)
             {
-                var hash = BCrypt.Net.BCrypt.HashPassword("viewer123", workFactor: 12);
+                var hash = BCrypt.Net.BCrypt.HashPassword("Consul123", workFactor: 12);
                 await conn.ExecuteAsync(@"
                     INSERT INTO users (id, username, email, password_hash, role, is_active, created_at)
-                    VALUES (gen_random_uuid(), 'viewer', 'viewer@stockflow.com', @Hash, 'Viewer', TRUE, NOW())",
+                    VALUES (gen_random_uuid(), 'consulta', 'consulta@stockflow.com', @Hash, 'Viewer', TRUE, NOW())",
                     new { Hash = hash });
-                logger.LogInformation("Seed: usuario viewer creado.");
+                logger.LogInformation("Seed: usuario consulta creado.");
             }
         }
         catch (Exception ex)
