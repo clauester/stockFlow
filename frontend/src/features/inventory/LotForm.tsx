@@ -8,7 +8,7 @@ import { crearLote, actualizarLote } from './productService'
 import type { Lote } from '../../types'
 
 const esquema = z.object({
-  lotNumber: z.string().min(1, 'El número de lote es requerido'),
+  lotNumber: z.string().trim().min(1, 'El número de lote es requerido').regex(/^LOT/, 'El número de lote debe comenzar con LOT'),
   price:     z.number().min(0.01, 'El precio debe ser mayor a 0'),
   quantity:  z.number().min(1, 'La cantidad debe ser al menos 1'),
   entryDate: z.string().min(1, 'La fecha es requerida'),

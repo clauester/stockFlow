@@ -21,7 +21,7 @@ public class DashboardService : IDashboardService
             "SELECT COUNT(*) FROM products WHERE is_active = TRUE");
 
         var totalLots = await conn.ExecuteScalarAsync<int>(
-            "SELECT COUNT(*) FROM product_lots");
+            "SELECT COUNT(*) FROM product_lots pl join products p on p.id = pl.product_id  where p.is_active = true");
 
         var lowStock = await conn.ExecuteScalarAsync<int>(
             "SELECT COUNT(*) FROM products WHERE is_active = TRUE AND units > 0 AND units <= (SELECT CAST(value AS INTEGER) FROM settings WHERE key = 'low_stock_threshold')");

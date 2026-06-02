@@ -14,7 +14,7 @@ import type { Producto, FiltrosProducto } from '../../types'
 export default function ProductTable() {
   const queryClient = useQueryClient()
 
-  const [filtros, setFiltros] = useState<FiltrosProducto>({ page: 1, pageSize: 10 })
+  const [filtros, setFiltros] = useState<FiltrosProducto>({ page: 1, pageSize: 100 })
   const [modalProducto, setModalProducto] = useState(false)
   const [modalLote, setModalLote]         = useState(false)
   const [modalVerLotes, setModalVerLotes] = useState(false)

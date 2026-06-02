@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\StockFlow",
+    "\\StockFlow\\bin",
+    "\\StockFlow\\core\\entities",
+    "\\StockFlow\\core\\exceptions",
+    "\\StockFlow\\features",
+    "\\StockFlow\\features\\auth",
+    "\\StockFlow\\features\\dashboard",
+    "\\StockFlow\\features\\inventory",
+    "\\StockFlow\\Properties"
+  ],
+  "SelectedNode": "\\StockFlow\\features\\auth\\AuthService.cs",
+  "PreviewInSolutionExplorer": false
+}

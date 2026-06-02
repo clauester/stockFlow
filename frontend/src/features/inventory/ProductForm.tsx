@@ -10,7 +10,7 @@ import type { Producto } from '../../types'
 const esquema = z.object({
   name:        z.string().min(1, 'El nombre es requerido'),
   description: z.string(),
-  code:        z.string().min(1, 'El código es requerido'),
+  code:        z.string().trim().min(1, 'El código es requerido').regex(/^PRD/, 'El código debe comenzar con PRD'),
   units:       z.number().min(0, 'Las unidades no pueden ser negativas'),
 })
 
