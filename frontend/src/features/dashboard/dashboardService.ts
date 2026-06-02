@@ -5,7 +5,6 @@ export interface DashboardStats {
   totalLots: number
   lowStockProducts: number
   outOfStockProducts: number
-  productsByCategory: { category: string; count: number }[]
   recentLots: {
     productName: string
     lotNumber: string

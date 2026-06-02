@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { useQuery, useQueryClient } from '@tanstack/react-query'
-import toast from 'react-hot-toast'
-import { Plus, Pencil, Trash2, PackagePlus, Search } from 'lucide-react'
+import { Plus, Pencil, Trash2, PackagePlus, Search, Eye } from 'lucide-react'
 import Badge from '../../components/ui/Badge'
 import Spinner from '../../components/ui/Spinner'
 import Pagination from '../../components/ui/Pagination'
 import ProductForm from './ProductForm'
 import LotForm from './LotForm'
+import LotListModal from './LotListModal'
 import { getProductos, eliminarProducto } from './productService'
+import { alertaExito, alertaError, confirmarEliminacion } from '../../utils/alerts'
 import type { Producto, FiltrosProducto } from '../../types'
 
 export default function ProductTable() {
@@ -16,6 +17,7 @@ export default function ProductTable() {
   const [filtros, setFiltros] = useState<FiltrosProducto>({ page: 1, pageSize: 10 })
   const [modalProducto, setModalProducto] = useState(false)
   const [modalLote, setModalLote]         = useState(false)
+  const [modalVerLotes, setModalVerLotes] = useState(false)
   const [productoActual, setProductoActual] = useState<Producto | null>(null)
 
   const { data, isLoading } = useQuery({
@@ -33,26 +35,32 @@ export default function ProductTable() {
     setModalLote(true)
   }
 
+  function abrirVerLotes(p: Producto) {
+    setProductoActual(p)
+    setModalVerLotes(true)
+  }
+
   function abrirNuevo() {
     setProductoActual(null)
     setModalProducto(true)
   }
 
   async function handleEliminar(p: Producto) {
-    if (!confirm(`¿Eliminar el producto "${p.name}"?`)) return
+    const confirmado = await confirmarEliminacion(p.name)
+    if (!confirmado) return
     try {
       await eliminarProducto(p.id)
-      toast.success('Producto eliminado')
+      alertaExito('Producto eliminado correctamente')
       queryClient.invalidateQueries({ queryKey: ['productos'] })
     } catch {
-      toast.error('No se pudo eliminar el producto')
+      alertaError('No se pudo eliminar el producto')
     }
   }
 
-  function getStockBadge(stock: number) {
-    if (stock === 0) return <Badge color="red">Sin stock</Badge>
-    if (stock <= 5)  return <Badge color="yellow">Bajo</Badge>
-    return <Badge color="green">{stock} uds</Badge>
+  function getStockBadge(units: number) {
+    if (units === 0) return <Badge color="red">Agotado</Badge>
+    if (units <= 5)  return <Badge color="yellow">{units} uds</Badge>
+    return <Badge color="green">{units} uds</Badge>
   }
 
   const inputClass = 'bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2 text-sm text-slate-700 placeholder:text-slate-300 outline-none focus:ring-2 focus:ring-emerald-400/30 focus:border-emerald-300 transition-all'
@@ -72,15 +80,9 @@ export default function ProductTable() {
         </div>
         <input
           type="text"
-          placeholder="Categoría"
+          placeholder="Código"
           className={`${inputClass} w-full sm:w-36`}
-          onChange={(e) => setFiltros(f => ({ ...f, category: e.target.value, page: 1 }))}
-        />
-        <input
-          type="text"
-          placeholder="SKU"
-          className={`${inputClass} w-full sm:w-32`}
-          onChange={(e) => setFiltros(f => ({ ...f, sku: e.target.value, page: 1 }))}
+          onChange={(e) => setFiltros(f => ({ ...f, code: e.target.value, page: 1 }))}
         />
         <button
           onClick={abrirNuevo}
@@ -92,14 +94,24 @@ export default function ProductTable() {
       </div>
 
       {/* tabla */}
-      <div className="overflow-x-auto rounded-2xl border border-slate-100 bg-white shadow-sm">
+      <div className="rounded-2xl border border-slate-100 bg-white shadow-sm overflow-visible">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-slate-50">
               <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide">Producto</th>
-              <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide hidden md:table-cell">Categoría</th>
-              <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide hidden sm:table-cell">SKU</th>
-              <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide">Stock</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide hidden sm:table-cell">Código</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide">Unidades</th>
+              <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide hidden sm:table-cell">
+                <span className="inline-flex items-center gap-1">
+                  Precio actual
+                  <span className="relative group cursor-pointer">
+                    <span className="inline-flex items-center justify-center w-4 h-4 rounded-full bg-slate-200 text-slate-500 text-[10px] font-bold">i</span>
+                    <span className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 w-44 px-3 py-2 bg-slate-800 text-white text-[11px] rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none z-[999] text-center leading-snug shadow-lg">
+                      Precio del último lote registrado para este producto
+                    </span>
+                  </span>
+                </span>
+              </th>
               <th className="text-left px-5 py-3.5 text-xs font-medium text-slate-400 uppercase tracking-wide hidden lg:table-cell">Lotes</th>
               <th className="px-5 py-3.5" />
             </tr>
@@ -124,12 +136,21 @@ export default function ProductTable() {
                     <p className="font-medium text-slate-800">{producto.name}</p>
                     <p className="text-xs text-slate-400 mt-0.5 line-clamp-1">{producto.description}</p>
                   </td>
-                  <td className="px-5 py-3.5 text-slate-500 hidden md:table-cell">{producto.category}</td>
-                  <td className="px-5 py-3.5 text-slate-400 font-mono text-xs hidden sm:table-cell">{producto.sku}</td>
-                  <td className="px-5 py-3.5">{getStockBadge(producto.stock)}</td>
+                  <td className="px-5 py-3.5 text-slate-400 font-mono text-xs hidden sm:table-cell">{producto.code}</td>
+                  <td className="px-5 py-3.5">{getStockBadge(producto.units)}</td>
+                  <td className="px-5 py-3.5 text-slate-600 hidden sm:table-cell">
+                    {producto.lastPrice ? `$${producto.lastPrice.toFixed(2)}` : <span className="text-slate-300">—</span>}
+                  </td>
                   <td className="px-5 py-3.5 text-slate-400 hidden lg:table-cell">{producto.lots.length}</td>
                   <td className="px-5 py-3.5">
                     <div className="flex items-center gap-0.5 justify-end">
+                      <button
+                        onClick={() => abrirVerLotes(producto)}
+                        title="Ver lotes"
+                        className="p-2 rounded-lg text-slate-300 hover:text-violet-600 hover:bg-violet-50 transition-all"
+                      >
+                        <Eye size={15} />
+                      </button>
                       <button
                         onClick={() => abrirLote(producto)}
                         title="Agregar lote"
@@ -181,6 +202,15 @@ export default function ProductTable() {
           onClose={() => setModalLote(false)}
           onSuccess={() => queryClient.invalidateQueries({ queryKey: ['productos'] })}
           productId={productoActual.id}
+        />
+      )}
+
+      {productoActual && (
+        <LotListModal
+          open={modalVerLotes}
+          onClose={() => setModalVerLotes(false)}
+          productId={productoActual.id}
+          productName={productoActual.name}
         />
       )}
     </div>

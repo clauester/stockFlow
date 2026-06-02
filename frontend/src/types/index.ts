@@ -17,9 +17,9 @@ export interface Producto {
   id: string
   name: string
   description: string
-  category: string
-  sku: string
-  stock: number
+  code: string
+  units: number
+  lastPrice: number | null
   isActive: boolean
   createdAt: string
   updatedAt: string
@@ -46,8 +46,7 @@ export interface PaginatedResult<T> {
 
 export interface FiltrosProducto {
   name?: string
-  category?: string
-  sku?: string
+  code?: string
   page?: number
   pageSize?: number
 }

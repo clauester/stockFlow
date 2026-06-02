@@ -1,0 +1,15 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\bin\\Debug",
+    "\\core",
+    "\\core\\entities",
+    "\\features",
+    "\\features\\dashboard",
+    "\\features\\inventory",
+    "\\infrastructure",
+    "\\infrastructure\\database"
+  ],
+  "SelectedNode": "\\features\\inventory\\InventoryService.cs",
+  "PreviewInSolutionExplorer": false
+}

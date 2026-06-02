@@ -4,7 +4,7 @@ namespace StockFlow.features.inventory;
 
 public interface IInventoryService
 {
-    Task<PaginatedResult<ProductResponse>> GetAllAsync(int page, int pageSize, string? name, string? category, string? sku);
+    Task<PaginatedResult<ProductResponse>> GetAllAsync(int page, int pageSize, string? name, string? code);
     Task<ProductResponse?> GetByIdAsync(Guid id);
     Task<ProductResponse> CreateAsync(CreateProductRequest request);
     Task<ProductResponse> UpdateAsync(Guid id, UpdateProductRequest request);

@@ -32,7 +32,7 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Production
       ConnectionStrings__DefaultConnection: "Host=postgres;Port=5432;Database=inventario;Username=gestor;Password=gestor123;"
-      Jwt__Secret:   "stockflow2026clave"
+      Jwt__Secret:   "stockflow2026claveSeguraParaJwt99"
       Jwt__Issuer:   "StockFlow.API"
       Jwt__Audience: "StockFlow.Client"
       Cors__AllowedOrigins__0: "http://localhost:3030"

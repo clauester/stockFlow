@@ -2,8 +2,8 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
-import toast from 'react-hot-toast'
 import Modal from '../../components/ui/Modal'
+import { alertaExito, alertaError } from '../../utils/alerts'
 import { crearLote, actualizarLote } from './productService'
 import type { Lote } from '../../types'
 
@@ -53,16 +53,16 @@ export default function LotForm({ open, onClose, onSuccess, productId, lote }: P
       }
       if (esEdicion && lote) {
         await actualizarLote(productId, lote.id, payload)
-        toast.success('Lote actualizado')
+        alertaExito('Lote actualizado')
       } else {
         await crearLote(productId, payload)
-        toast.success('Lote agregado')
+        alertaExito('Lote agregado')
       }
       onSuccess()
       onClose()
     } catch (error: any) {
       const msg = error.response?.data?.message ?? 'Error al guardar el lote'
-      toast.error(msg)
+      alertaError(msg)
     }
   }
 

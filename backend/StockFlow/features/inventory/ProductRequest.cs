@@ -10,14 +10,11 @@ public class CreateProductRequest
     [MaxLength(500)]
     public string Description { get; set; } = string.Empty;
 
-    [Required, MaxLength(100)]
-    public string Category { get; set; } = string.Empty;
-
     [Required, MaxLength(50)]
-    public string Sku { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
 
     [Range(0, int.MaxValue)]
-    public int Stock { get; set; }
+    public int Units { get; set; }
 }
 
 public class UpdateProductRequest
@@ -28,12 +25,9 @@ public class UpdateProductRequest
     [MaxLength(500)]
     public string Description { get; set; } = string.Empty;
 
-    [Required, MaxLength(100)]
-    public string Category { get; set; } = string.Empty;
-
     [Required, MaxLength(50)]
-    public string Sku { get; set; } = string.Empty;
+    public string Code { get; set; } = string.Empty;
 
     [Range(0, int.MaxValue)]
-    public int Stock { get; set; }
+    public int Units { get; set; }
 }

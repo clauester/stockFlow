@@ -24,17 +24,10 @@ public class DashboardService : IDashboardService
             "SELECT COUNT(*) FROM product_lots");
 
         var lowStock = await conn.ExecuteScalarAsync<int>(
-            "SELECT COUNT(*) FROM products WHERE is_active = TRUE AND stock > 0 AND stock <= 5");
+            "SELECT COUNT(*) FROM products WHERE is_active = TRUE AND units > 0 AND units <= (SELECT CAST(value AS INTEGER) FROM settings WHERE key = 'low_stock_threshold')");
 
         var outOfStock = await conn.ExecuteScalarAsync<int>(
-            "SELECT COUNT(*) FROM products WHERE is_active = TRUE AND stock = 0");
-
-        var byCategory = (await conn.QueryAsync<CategoryCount>(@"
-            SELECT category, COUNT(*) AS count
-            FROM products
-            WHERE is_active = TRUE
-            GROUP BY category
-            ORDER BY count DESC")).ToList();
+            "SELECT COUNT(*) FROM products WHERE is_active = TRUE AND units = 0");
 
         var recentLots = (await conn.QueryAsync<RecentLot>(@"
             SELECT p.name AS product_name, l.lot_number, l.quantity, l.price, l.entry_date
@@ -50,7 +43,6 @@ public class DashboardService : IDashboardService
             TotalLots          = totalLots,
             LowStockProducts   = lowStock,
             OutOfStockProducts = outOfStock,
-            ProductsByCategory = byCategory,
             RecentLots         = recentLots
         };
     }

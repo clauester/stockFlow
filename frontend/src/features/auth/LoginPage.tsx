@@ -2,8 +2,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { useNavigate } from 'react-router-dom'
-import toast from 'react-hot-toast'
 import { Package } from 'lucide-react'
+import { alertaError } from '../../utils/alerts'
 import { useAuth } from '../../context/AuthContext'
 import { login } from './authService'
 
@@ -33,7 +33,7 @@ export default function LoginPage() {
       })
       navigate('/')
     } catch {
-      toast.error('Usuario o contraseña incorrectos')
+      alertaError('Usuario o contraseña incorrectos')
     }
   }
 

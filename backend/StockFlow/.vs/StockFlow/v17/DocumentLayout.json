@@ -1,0 +1,279 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\InventoryService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\inventory\\InventoryService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\LotRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\inventory\\LotRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\ProductResponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\inventory\\ProductResponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\ProductRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\inventory\\ProductRequest.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\LotResponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\inventory\\LotResponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\InventoryController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\inventory\\InventoryController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\infrastructure\\database\\DbConnectionFactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:infrastructure\\database\\DbConnectionFactory.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\infrastructure\\database\\DbSeeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:infrastructure\\database\\DbSeeder.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\IInventoryService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\inventory\\IInventoryService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\dashboard\\DashboardController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\dashboard\\DashboardController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\dashboard\\DashboardService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\dashboard\\DashboardService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\auth\\AuthController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\auth\\AuthController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\auth\\AuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:features\\auth\\AuthService.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 7,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{b1e99781-ab81-11d0-b683-00aa00a3ee26}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{eefa5220-e298-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{d78612c7-9962-4b83-95d9-268046dad23a}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "InventoryService.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\InventoryService.cs",
+              "RelativeDocumentMoniker": "features\\inventory\\InventoryService.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\InventoryService.cs",
+              "RelativeToolTip": "features\\inventory\\InventoryService.cs",
+              "ViewState": "AgIAADwAAAAAAAAAAAAAADcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T06:02:28.454Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProductResponse.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\ProductResponse.cs",
+              "RelativeDocumentMoniker": "features\\inventory\\ProductResponse.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\ProductResponse.cs",
+              "RelativeToolTip": "features\\inventory\\ProductResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T06:02:22.476Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductRequest.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\ProductRequest.cs",
+              "RelativeDocumentMoniker": "features\\inventory\\ProductRequest.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\ProductRequest.cs",
+              "RelativeToolTip": "features\\inventory\\ProductRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T06:02:21.18Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "LotRequest.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\LotRequest.cs",
+              "RelativeDocumentMoniker": "features\\inventory\\LotRequest.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\LotRequest.cs",
+              "RelativeToolTip": "features\\inventory\\LotRequest.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAoAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T06:01:12.77Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "DbSeeder.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\infrastructure\\database\\DbSeeder.cs",
+              "RelativeDocumentMoniker": "infrastructure\\database\\DbSeeder.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\infrastructure\\database\\DbSeeder.cs",
+              "RelativeToolTip": "infrastructure\\database\\DbSeeder.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:55:38.302Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "DbConnectionFactory.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\infrastructure\\database\\DbConnectionFactory.cs",
+              "RelativeDocumentMoniker": "infrastructure\\database\\DbConnectionFactory.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\infrastructure\\database\\DbConnectionFactory.cs",
+              "RelativeToolTip": "infrastructure\\database\\DbConnectionFactory.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:55:32.7Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "InventoryController.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\InventoryController.cs",
+              "RelativeDocumentMoniker": "features\\inventory\\InventoryController.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\InventoryController.cs",
+              "RelativeToolTip": "features\\inventory\\InventoryController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:52:17.188Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DashboardController.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\dashboard\\DashboardController.cs",
+              "RelativeDocumentMoniker": "features\\dashboard\\DashboardController.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\dashboard\\DashboardController.cs",
+              "RelativeToolTip": "features\\dashboard\\DashboardController.cs",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAABMAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:51:55.554Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "IInventoryService.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\IInventoryService.cs",
+              "RelativeDocumentMoniker": "features\\inventory\\IInventoryService.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\IInventoryService.cs",
+              "RelativeToolTip": "features\\inventory\\IInventoryService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:51:50.147Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LotResponse.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\LotResponse.cs",
+              "RelativeDocumentMoniker": "features\\inventory\\LotResponse.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\inventory\\LotResponse.cs",
+              "RelativeToolTip": "features\\inventory\\LotResponse.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAmAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:37:43.271Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DashboardService.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\dashboard\\DashboardService.cs",
+              "RelativeDocumentMoniker": "features\\dashboard\\DashboardService.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\dashboard\\DashboardService.cs",
+              "RelativeToolTip": "features\\dashboard\\DashboardService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAlAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:39:36.918Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AuthController.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\auth\\AuthController.cs",
+              "RelativeDocumentMoniker": "features\\auth\\AuthController.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\auth\\AuthController.cs",
+              "RelativeToolTip": "features\\auth\\AuthController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:39:27.218Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\auth\\AuthService.cs",
+              "RelativeDocumentMoniker": "features\\auth\\AuthService.cs",
+              "ToolTip": "C:\\Users\\luisa\\Desktop\\stockFlow\\backend\\StockFlow\\features\\auth\\AuthService.cs",
+              "RelativeToolTip": "features\\auth\\AuthService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-02T05:38:53.65Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 282,
+          "SelectedChildIndex": -1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{e1b7d1f8-9b3c-49b1-8f4f-bfc63a88835d}"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

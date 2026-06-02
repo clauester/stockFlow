@@ -19,7 +19,7 @@ public class InventoryService : IInventoryService
     }
 
     public async Task<PaginatedResult<ProductResponse>> GetAllAsync(
-        int page, int pageSize, string? name, string? category, string? sku)
+        int page, int pageSize, string? name, string? code)
     {
         using var conn = _db.Create();
 
@@ -31,15 +31,10 @@ public class InventoryService : IInventoryService
             condiciones.Add("p.name ILIKE @Name");
             parametros.Add("Name", $"%{name}%");
         }
-        if (!string.IsNullOrWhiteSpace(category))
+        if (!string.IsNullOrWhiteSpace(code))
         {
-            condiciones.Add("p.category ILIKE @Category");
-            parametros.Add("Category", $"%{category}%");
-        }
-        if (!string.IsNullOrWhiteSpace(sku))
-        {
-            condiciones.Add("p.sku ILIKE @Sku");
-            parametros.Add("Sku", $"%{sku}%");
+            condiciones.Add("p.code ILIKE @Code");
+            parametros.Add("Code", $"%{code}%");
         }
 
         var where  = string.Join(" AND ", condiciones);
@@ -79,7 +74,7 @@ public class InventoryService : IInventoryService
 
         return new PaginatedResult<ProductResponse>
         {
-            Data       = dict.Values.ToList(),
+            Data       = dict.Values.Select(CalcularPrecio).ToList(),
             TotalCount = total,
             Page       = page,
             PageSize   = pageSize
@@ -110,28 +105,28 @@ public class InventoryService : IInventoryService
             new { Id = id },
             splitOn: "id");
 
-        return resultado;
+        return resultado is not null ? CalcularPrecio(resultado) : null;
     }
 
     public async Task<ProductResponse> CreateAsync(CreateProductRequest request)
     {
         using var conn = _db.Create();
 
-        var skuExiste = await conn.ExecuteScalarAsync<bool>(
-            "SELECT EXISTS(SELECT 1 FROM products WHERE sku = @Sku)", new { request.Sku });
+        var codeExiste = await conn.ExecuteScalarAsync<bool>(
+            "SELECT EXISTS(SELECT 1 FROM products WHERE code = @Code)", new { request.Code });
 
-        if (skuExiste)
-            throw new ConflictException($"Ya existe un producto con el SKU '{request.Sku}'.");
+        if (codeExiste)
+            throw new ConflictException($"Ya existe un producto con el código '{request.Code}'.");
 
         var id  = Guid.NewGuid();
         var now = DateTime.UtcNow;
 
         await conn.ExecuteAsync(@"
-            INSERT INTO products (id, name, description, category, sku, stock, is_active, created_at, updated_at)
-            VALUES (@Id, @Name, @Description, @Category, @Sku, @Stock, TRUE, @Now, @Now)",
-            new { Id = id, request.Name, request.Description, request.Category, request.Sku, request.Stock, Now = now });
+            INSERT INTO products (id, name, description, code, units, is_active, created_at, updated_at)
+            VALUES (@Id, @Name, @Description, @Code, @Units, TRUE, @Now, @Now)",
+            new { Id = id, request.Name, request.Description, request.Code, request.Units, Now = now });
 
-        _logger.LogInformation("Producto creado: {Name} (SKU: {Sku})", request.Name, request.Sku);
+        _logger.LogInformation("Producto creado: {Name} (Código: {Code})", request.Name, request.Code);
 
         return (await GetByIdAsync(id))!;
     }
@@ -146,18 +141,18 @@ public class InventoryService : IInventoryService
         if (existente is null)
             throw new NotFoundException("Producto", id);
 
-        var skuConflicto = await conn.ExecuteScalarAsync<bool>(
-            "SELECT EXISTS(SELECT 1 FROM products WHERE sku = @Sku AND id <> @Id)", new { request.Sku, Id = id });
+        var codeConflicto = await conn.ExecuteScalarAsync<bool>(
+            "SELECT EXISTS(SELECT 1 FROM products WHERE code = @Code AND id <> @Id)", new { request.Code, Id = id });
 
-        if (skuConflicto)
-            throw new ConflictException($"El SKU '{request.Sku}' ya está en uso por otro producto.");
+        if (codeConflicto)
+            throw new ConflictException($"El código '{request.Code}' ya está en uso por otro producto.");
 
         await conn.ExecuteAsync(@"
             UPDATE products
-            SET name = @Name, description = @Description, category = @Category,
-                sku = @Sku, stock = @Stock, updated_at = @Now
+            SET name = @Name, description = @Description,
+                code = @Code, units = @Units, updated_at = @Now
             WHERE id = @Id",
-            new { request.Name, request.Description, request.Category, request.Sku, request.Stock, Now = DateTime.UtcNow, Id = id });
+            new { request.Name, request.Description, request.Code, request.Units, Now = DateTime.UtcNow, Id = id });
 
         _logger.LogInformation("Producto actualizado: {Id}", id);
 
@@ -195,7 +190,17 @@ public class InventoryService : IInventoryService
     {
         using var conn = _db.Create();
 
-        await VerificarProductoExisteAsync(conn, productId);
+        var producto = await conn.QuerySingleOrDefaultAsync<Product>(
+            "SELECT * FROM products WHERE id = @Id AND is_active = TRUE", new { Id = productId });
+
+        if (producto is null)
+            throw new NotFoundException("Producto", productId);
+
+        if (request.Quantity > producto.Units)
+            throw new DomainException($"Unidades insuficientes. Disponible: {producto.Units}, solicitado: {request.Quantity}.");
+
+        if (request.EntryDate.Date > DateTime.UtcNow.Date)
+            throw new DomainException("La fecha de ingreso no puede ser posterior a hoy.");
 
         var loteExiste = await conn.ExecuteScalarAsync<bool>(
             "SELECT EXISTS(SELECT 1 FROM product_lots WHERE lot_number = @LotNumber)",
@@ -211,7 +216,12 @@ public class InventoryService : IInventoryService
             VALUES (@Id, @ProductId, @LotNumber, @Price, @EntryDate, @Quantity, @Notes)",
             new { Id = id, ProductId = productId, request.LotNumber, request.Price, request.EntryDate, request.Quantity, request.Notes });
 
-        _logger.LogInformation("Lote creado: {LotNumber} para producto {ProductId}", request.LotNumber, productId);
+        // descontar las unidades del producto
+        await conn.ExecuteAsync(
+            "UPDATE products SET units = units - @Cantidad, updated_at = @Now WHERE id = @Id",
+            new { Cantidad = request.Quantity, Now = DateTime.UtcNow, Id = productId });
+
+        _logger.LogInformation("Lote creado: {LotNumber} para producto {ProductId}, unidades restadas: {Qty}", request.LotNumber, productId, request.Quantity);
 
         var lote = await conn.QuerySingleAsync<ProductLot>(
             "SELECT * FROM product_lots WHERE id = @Id", new { Id = id });
@@ -223,7 +233,11 @@ public class InventoryService : IInventoryService
     {
         using var conn = _db.Create();
 
-        await VerificarProductoExisteAsync(conn, productId);
+        var producto = await conn.QuerySingleOrDefaultAsync<Product>(
+            "SELECT * FROM products WHERE id = @Id AND is_active = TRUE", new { Id = productId });
+
+        if (producto is null)
+            throw new NotFoundException("Producto", productId);
 
         var lote = await conn.QuerySingleOrDefaultAsync<ProductLot>(
             "SELECT * FROM product_lots WHERE id = @Id AND product_id = @ProductId",
@@ -231,6 +245,13 @@ public class InventoryService : IInventoryService
 
         if (lote is null)
             throw new NotFoundException("Lote", lotId);
+
+        var diferencia = request.Quantity - lote.Quantity;
+        if (diferencia > 0 && diferencia > producto.Units)
+            throw new DomainException($"Unidades insuficientes para aumentar la cantidad. Disponible: {producto.Units}, incremento solicitado: {diferencia}.");
+
+        if (request.EntryDate.Date > DateTime.UtcNow.Date)
+            throw new DomainException("La fecha de ingreso no puede ser posterior a hoy.");
 
         var loteConflicto = await conn.ExecuteScalarAsync<bool>(
             "SELECT EXISTS(SELECT 1 FROM product_lots WHERE lot_number = @LotNumber AND id <> @Id)",
@@ -246,6 +267,13 @@ public class InventoryService : IInventoryService
             WHERE id = @Id",
             new { request.LotNumber, request.Price, request.EntryDate, request.Quantity, request.Notes, Id = lotId });
 
+        if (diferencia != 0)
+        {
+            await conn.ExecuteAsync(
+                "UPDATE products SET units = units - @Diferencia, updated_at = @Now WHERE id = @Id",
+                new { Diferencia = diferencia, Now = DateTime.UtcNow, Id = productId });
+        }
+
         var actualizado = await conn.QuerySingleAsync<ProductLot>(
             "SELECT * FROM product_lots WHERE id = @Id", new { Id = lotId });
 
@@ -258,14 +286,22 @@ public class InventoryService : IInventoryService
 
         await VerificarProductoExisteAsync(conn, productId);
 
-        var filas = await conn.ExecuteAsync(
-            "DELETE FROM product_lots WHERE id = @Id AND product_id = @ProductId",
+        var lote = await conn.QuerySingleOrDefaultAsync<ProductLot>(
+            "SELECT * FROM product_lots WHERE id = @Id AND product_id = @ProductId",
             new { Id = lotId, ProductId = productId });
 
-        if (filas == 0)
+        if (lote is null)
             throw new NotFoundException("Lote", lotId);
 
-        _logger.LogInformation("Lote eliminado: {LotId}", lotId);
+        await conn.ExecuteAsync(
+            "DELETE FROM product_lots WHERE id = @Id", new { Id = lotId });
+
+        // devolver las unidades al producto
+        await conn.ExecuteAsync(
+            "UPDATE products SET units = units + @Cantidad, updated_at = @Now WHERE id = @Id",
+            new { Cantidad = lote.Quantity, Now = DateTime.UtcNow, Id = productId });
+
+        _logger.LogInformation("Lote eliminado: {LotId}, unidades devueltas: {Qty}", lotId, lote.Quantity);
     }
 
     private static async Task VerificarProductoExisteAsync(System.Data.IDbConnection conn, Guid productId)
@@ -277,14 +313,21 @@ public class InventoryService : IInventoryService
         if (!existe) throw new NotFoundException("Producto", productId);
     }
 
+    private static ProductResponse CalcularPrecio(ProductResponse p)
+    {
+        if (p.Lots.Count > 0)
+            p.LastPrice = p.Lots.OrderByDescending(l => l.EntryDate).First().Price;
+        return p;
+    }
+
     private static ProductResponse MapearProducto(Product p) => new()
     {
         Id          = p.Id,
         Name        = p.Name,
         Description = p.Description,
-        Category    = p.Category,
-        Sku         = p.Sku,
-        Stock       = p.Stock,
+        Code        = p.Code,
+        Units       = p.Units,
+        LastPrice   = null,
         IsActive    = p.IsActive,
         CreatedAt   = p.CreatedAt,
         UpdatedAt   = p.UpdatedAt

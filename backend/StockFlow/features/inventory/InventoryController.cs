@@ -24,10 +24,9 @@ public class InventoryController : ControllerBase
         [FromQuery] int page = 1,
         [FromQuery] int pageSize = 10,
         [FromQuery] string? name = null,
-        [FromQuery] string? category = null,
-        [FromQuery] string? sku = null)
+        [FromQuery] string? code = null)
     {
-        var result = await _service.GetAllAsync(page, pageSize, name, category, sku);
+        var result = await _service.GetAllAsync(page, pageSize, name, code);
         return Ok(result);
     }
 

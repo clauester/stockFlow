@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Package, Layers, AlertTriangle, XCircle } from 'lucide-react'
+import { Box, Layers3, TrendingUp, ShieldAlert } from 'lucide-react'
 import Spinner from '../../components/ui/Spinner'
 import { getDashboardStats } from './dashboardService'
 
@@ -17,34 +17,22 @@ export default function DashboardPage() {
     )
   }
 
-  const tarjetas = [
-    { label: 'Total productos',  valor: data?.totalProducts ?? 0,     icono: Package,       gradiente: 'from-emerald-400 to-emerald-600' },
-    { label: 'Total lotes',      valor: data?.totalLots ?? 0,          icono: Layers,        gradiente: 'from-blue-400 to-blue-600' },
-    { label: 'Stock bajo',       valor: data?.lowStockProducts ?? 0,   icono: AlertTriangle, gradiente: 'from-amber-400 to-amber-600' },
-    { label: 'Sin stock',        valor: data?.outOfStockProducts ?? 0, icono: XCircle,       gradiente: 'from-rose-400 to-rose-600' },
-  ]
-
   return (
-    <div>
-      <div className="mb-7">
-        <h1 className="text-xl font-semibold text-slate-800">Dashboard</h1>
-        <p className="text-sm text-slate-400 mt-0.5">Resumen general del inventario</p>
+    <div className="space-y-6">
+      <div>
+        <h1 className="text-lg font-semibold text-slate-800">Resumen</h1>
+        <p className="text-sm text-slate-400">Vista general del inventario</p>
       </div>
 
-      {/* cards */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        {tarjetas.map(({ label, valor, icono: Icono, gradiente }) => (
-          <div key={label} className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm hover:shadow-md transition-shadow">
-            <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${gradiente} flex items-center justify-center mb-3 shadow-sm`}>
-              <Icono size={18} className="text-white" />
-            </div>
-            <p className="text-2xl font-bold text-slate-800">{valor}</p>
-            <p className="text-xs text-slate-400 mt-1">{label}</p>
-          </div>
-        ))}
+      {/* métricas */}
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        <MetricCard label="Productos"  valor={data?.totalProducts ?? 0}     icono={<Box size={18} />}           color="emerald" />
+        <MetricCard label="Lotes"      valor={data?.totalLots ?? 0}          icono={<Layers3 size={18} />}       color="sky" />
+        <MetricCard label="Stock bajo" valor={data?.lowStockProducts ?? 0}   icono={<TrendingUp size={18} />}    color="amber" />
+        <MetricCard label="Agotados"   valor={data?.outOfStockProducts ?? 0} icono={<ShieldAlert size={18} />}   color="rose" />
       </div>
 
-      {/* tabla lotes recientes */}
+      {/* lotes recientes */}
       <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
         <div className="px-5 py-4 border-b border-slate-50">
           <h2 className="text-sm font-semibold text-slate-700">Últimos lotes ingresados</h2>
@@ -63,7 +51,7 @@ export default function DashboardPage() {
             <tbody>
               {data?.recentLots.length === 0 ? (
                 <tr>
-                  <td colSpan={5} className="text-center py-12 text-slate-300">Sin lotes registrados</td>
+                  <td colSpan={5} className="text-center py-12 text-slate-300">Sin lotes registrados aún</td>
                 </tr>
               ) : (
                 data?.recentLots.map((lote, i) => (
@@ -73,7 +61,7 @@ export default function DashboardPage() {
                     <td className="px-5 py-3 text-slate-500 hidden sm:table-cell">{lote.quantity}</td>
                     <td className="px-5 py-3 text-slate-500 hidden sm:table-cell">${lote.price.toFixed(2)}</td>
                     <td className="px-5 py-3 text-slate-400 hidden md:table-cell">
-                      {new Date(lote.entryDate).toLocaleDateString('es-CO')}
+                      {new Date(lote.entryDate).toLocaleDateString('es-CO', { day: 'numeric', month: 'short' })}
                     </td>
                   </tr>
                 ))
@@ -82,6 +70,25 @@ export default function DashboardPage() {
           </table>
         </div>
       </div>
+    </div>
+  )
+}
+
+function MetricCard({ label, valor, icono, color }: { label: string; valor: number; icono: React.ReactNode; color: string }) {
+  const colores: Record<string, string> = {
+    emerald: 'bg-emerald-50 text-emerald-600',
+    sky:     'bg-sky-50 text-sky-600',
+    amber:   'bg-amber-50 text-amber-600',
+    rose:    'bg-rose-50 text-rose-600',
+  }
+
+  return (
+    <div className="bg-white rounded-2xl border border-slate-100 p-5 shadow-sm">
+      <div className={`w-9 h-9 rounded-xl flex items-center justify-center mb-3 ${colores[color]}`}>
+        {icono}
+      </div>
+      <p className="text-2xl font-bold text-slate-800">{valor}</p>
+      <p className="text-xs text-slate-400 mt-0.5">{label}</p>
     </div>
   )
 }

@@ -11,7 +11,7 @@ export async function getProducto(id: string): Promise<Producto> {
   return data
 }
 
-export async function crearProducto(payload: Omit<Producto, 'id' | 'isActive' | 'createdAt' | 'updatedAt' | 'lots'>): Promise<Producto> {
+export async function crearProducto(payload: Omit<Producto, 'id' | 'isActive' | 'createdAt' | 'updatedAt' | 'lots' | 'lastPrice'>): Promise<Producto> {
   const { data } = await axiosClient.post<Producto>('/products', payload)
   return data
 }
